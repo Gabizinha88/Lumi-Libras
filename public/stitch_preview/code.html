@@ -1,0 +1,280 @@
+<!DOCTYPE html><html lang="pt-BR" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Lumi Libras - O jeito grátis e divertido de aprender Libras</title>
+<!-- External Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Nunito -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" class=""><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap" rel="stylesheet" class="">
+<!-- Tailwind Configuration -->
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Nunito', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              blue: '#2952E3',
+              blueDark: '#1E3DB0',
+              blueDeep: '#18318C',
+              cyan: '#00C8DF',
+              yellow: '#FFC800',
+              yellowDark: '#E5B400',
+              purple: '#A855F7',
+              slateBg: '#F7F9FC',
+            }
+          },
+          boxShadow: {
+            'duo-blue': '0 4px 0 #18318C',
+            'duo-yellow': '0 4px 0 #D49D00',
+            'duo-white': '0 4px 0 #E2E8F0',
+            'duo-card': '0 8px 30px rgba(0,0,0,0.08)',
+          }
+        }
+      }
+    }
+  </script>
+<!-- Custom CSS for 3D buttons & Playful animations -->
+<style data-purpose="button-tactile-styles">
+    .btn-3d {
+      transition: all 0.1s ease-in-out;
+      position: relative;
+    }
+    .btn-3d:active {
+      transform: translateY(4px);
+    }
+    .btn-primary-3d {
+      background-color: #2952E3;
+      box-shadow: 0 4px 0 #18318C;
+    }
+    .btn-primary-3d:hover {
+      background-color: #3860F2;
+    }
+    .btn-primary-3d:active {
+      box-shadow: 0 0 0 #18318C;
+    }
+
+    .btn-secondary-3d {
+      background-color: #FFFFFF;
+      box-shadow: 0 4px 0 #CBD5E1;
+      border: 2px solid #E2E8F0;
+    }
+    .btn-secondary-3d:hover {
+      background-color: #F8FAFC;
+    }
+    .btn-secondary-3d:active {
+      box-shadow: 0 0 0 #CBD5E1;
+    }
+    
+    .btn-social-3d {
+      box-shadow: 0 3px 0 #E2E8F0;
+      border: 2px solid #E2E8F0;
+    }
+    .btn-social-3d:active {
+      transform: translateY(3px);
+      box-shadow: 0 0 0 #E2E8F0;
+    }
+  </style>
+<style data-purpose="floating-animations">
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(2deg); }
+    }
+    @keyframes floatReverse {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(6px) rotate(-3deg); }
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.35; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(1.08); }
+    }
+    .anim-float {
+      animation: floatSlow 5s ease-in-out infinite;
+    }
+    .anim-float-alt {
+      animation: floatReverse 6s ease-in-out infinite;
+    }
+    .star-glow {
+      animation: pulseGlow 4s ease-in-out infinite;
+    }
+  </style>
+<style>body, button, input { font-family: 'Plus Jakarta Sans', sans-serif !important; } h1, h2, h3, .brand-title { font-family: 'Outfit', sans-serif !important; letter-spacing: -0.02em; }</style></head>
+<body class="bg-white text-slate-800 font-sans antialiased min-h-screen flex flex-col selection:bg-brand-blue selection:text-white">
+<!-- BEGIN: SiteHeader -->
+<header class="w-full border-b border-slate-200/80 bg-white sticky top-0 z-40">
+<div class="max-w-7xl mx-auto px-4 sm:px-8 h-20 flex items-center justify-between">
+<!-- Brand Logo -->
+<a aria-label="Lumi Libras Home" class="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-brand-blue rounded-xl p-1" href="#">
+<!-- Playful waving hand badge -->
+<div class="w-10 h-10 rounded-2xl flex items-center justify-center transform group-hover:scale-105 transition-transform overflow-hidden"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBW9N146_koeeKHAoTrsuhr2gb5lxr_2jLTF2q96K-l87-NHXh_QkFuHjLP7gDu2n8-cARGADgseE6myD9_Mz2TLiaZS1y7PwEA40289iy9k9CstyIHqZUBF5V2-aywlWkT3_IMC7Ppi_UzoXqgM4zyzdNSkj1VPruFClDXV-wZVVmNov4TfpxBVyeodhVkD-e_KJ_o6b0NWUQurU0I6FkpMJDammbpYGMpTwUzOreLYZtdZ6kS7blSM4PC957vbkod-zY" alt="Logo Mãos que Transformam" class="w-full h-full object-contain"></div>
+<span class="text-2xl sm:text-3xl font-black tracking-tight text-brand-blue">lumi<span class="text-brand-yellow">libras</span></span>
+</a>
+<!-- Right Header Actions (Language selector & Login button) -->
+<div class="flex items-center gap-3 sm:gap-6"><!-- Site Language Dropdown Selector --><div class="relative group hidden lg:block"><button aria-haspopup="true" class="flex items-center gap-2 text-xs uppercase tracking-wider font-extrabold text-slate-500 hover:text-slate-800 transition-colors py-2 px-3 rounded-xl hover:bg-slate-100" type="button"><svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" x2="22" y1="12" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg><span class="">PT (BR)</span><svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></button></div><!-- Header Auth Buttons --><div class="flex items-center gap-2 sm:gap-3"><button id="openLoginBtnNav" class="py-2.5 px-4 rounded-xl text-xs sm:text-sm font-extrabold text-slate-700 hover:text-brand-blue hover:bg-slate-100 transition-colors uppercase tracking-wider cursor-pointer" type="button" onclick="const m = document.getElementById('loginModalOverlay'); const c = document.getElementById('loginModalCard'); m.classList.remove('hidden', 'opacity-0', 'pointer-events-none'); m.classList.add('flex', 'opacity-100', 'pointer-events-auto'); if(c) { c.classList.remove('scale-95'); c.classList.add('scale-100'); } if(document.getElementById('tabBtnLogin')) document.getElementById('tabBtnLogin').click();">Entrar</button><button id="openRegisterBtnNav" class="btn-3d py-2.5 px-4 sm:px-5 rounded-xl border-2 border-brand-blue/30 text-brand-blue hover:bg-brand-blue hover:text-white transition-all text-xs sm:text-sm font-black uppercase tracking-wider shadow-sm hover:shadow-md cursor-pointer" type="button" onclick="const m = document.getElementById('loginModalOverlay'); const c = document.getElementById('loginModalCard'); m.classList.remove('hidden', 'opacity-0', 'pointer-events-none'); m.classList.add('flex', 'opacity-100', 'pointer-events-auto'); if(c) { c.classList.remove('scale-95'); c.classList.add('scale-100'); } if(document.getElementById('tabBtnRegister')) document.getElementById('tabBtnRegister').click();">Cadastrar-se</button></div></div>
+</div>
+</header>
+<!-- END: SiteHeader -->
+<!-- BEGIN: MainContent -->
+<main class="flex-grow flex flex-col justify-center">
+<!-- Hero Section Container -->
+<section class="max-w-7xl mx-auto px-4 sm:px-8 py-8 md:py-16 w-full">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center min-h-[520px]">
+<!-- BEGIN: HeroVisualColumn -->
+<div class="lg:col-span-6 flex justify-center items-center relative order-1">
+<!-- Background Glow Effect behind Mascot -->
+<div class="absolute w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-cyan-100/60 filter blur-3xl star-glow pointer-events-none"></div>
+<!-- Main Composition Container -->
+<div class="relative w-full max-w-[460px] aspect-square flex items-center justify-center">
+<!-- Floating Decorative Element: Friendly Badge -->
+<div class="absolute -top-3 left-4 z-20 anim-float bg-white/95 backdrop-blur-sm border-2 border-slate-100 shadow-md rounded-2xl px-3.5 py-2 flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-emerald-500 animate-ping"></span>
+<span class="text-xs font-black tracking-wide text-slate-700">Aprenda Libras Brincando! 👋</span>
+</div>
+<!-- Floating Sign 1: 'Eu Te Amo' (ILY Hand Sign) -->
+<div class="absolute top-10 right-2 z-20 anim-float-alt bg-white border border-slate-200/90 shadow-lg rounded-2xl p-2.5 flex items-center gap-2">
+<div class="w-8 h-8 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center font-black text-sm">🤟</div>
+<div class="text-[11px] leading-tight font-extrabold text-slate-600">Sinal: <span class="text-purple-600 font-black">Amor</span></div>
+</div>
+<!-- Floating Sign 2: 'Oi' / Paz & Amor -->
+<div class="absolute bottom-12 -left-2 z-20 anim-float bg-white border border-slate-200/90 shadow-lg rounded-2xl p-2.5 flex items-center gap-2">
+<div class="w-8 h-8 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center font-black text-sm">✌️</div>
+<div class="text-[11px] leading-tight font-extrabold text-slate-600">Sinal: <span class="text-amber-600 font-black">Paz</span></div>
+</div>
+<!-- Floating Sign 3: Letra 'L' / Libras -->
+<div class="absolute -bottom-4 right-12 z-20 anim-float-alt bg-white border border-slate-200/90 shadow-lg rounded-2xl p-2.5 flex items-center gap-2">
+<div class="w-8 h-8 rounded-xl bg-blue-100 text-brand-blue flex items-center justify-center font-black text-xs">👆 L</div>
+<div class="text-[11px] leading-tight font-extrabold text-slate-600">Alfabeto <span class="text-brand-blue font-black">Manual</span></div>
+</div>
+<!-- Floating Mini Stars -->
+<span class="absolute top-28 left-6 text-brand-yellow text-xl anim-float select-none">✨</span>
+<span class="absolute bottom-32 right-0 text-brand-yellow text-2xl anim-float-alt select-none">⭐</span>
+<!-- Center Mascot: Turquoise Monster Lumi hugging Star -->
+<div class="relative z-10 w-full h-full flex items-center justify-center transform transition-transform hover:scale-105 duration-300">
+<img alt="Lumi, o monstrinho azul turquesa sorridente e peludo abraçando uma estrela amarela" class="w-full max-w-[390px] h-auto object-contain drop-shadow-2xl select-none pointer-events-none" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKPdbTWvdNwK1kZbi5HXTYbzW9c1YrSa9wzFMSE7ttwaK_VP5d1p8AfX9QZzktVTfpQMfRMV0OVtclqvh1H5XnyemVVQ0FoLNBUN31A9dVkTThTdT-s3dk1z-OLCODPAk8jy9uNIQw-beVrCdU7mgY-y0gVFD3RRp5CfbIn9TgX68f4FlQzzK2m9t-GUCFSKKvLfhIxyuhxMAidq060LAMNRLmSIcXLw77FjzazeCzTUTb67BpdOH9OdR9MHRagjPucIc">
+</div>
+</div>
+</div>
+<!-- END: HeroVisualColumn -->
+<!-- BEGIN: HeroCTAColumn -->
+<div class="lg:col-span-6 flex flex-col items-center lg:items-start text-center lg:text-left order-2 max-w-xl mx-auto lg:mx-0"><div class="space-y-6 max-w-lg">
+  <h1 class="text-3xl sm:text-4xl xl:text-5xl font-black text-slate-900 tracking-tight leading-[1.15]">
+    O jeito <span class="text-brand-blue">grátis</span>, divertido e eficaz de aprender <span class="text-brand-yellowDark relative inline-block">Libras!</span>
+  </h1>
+  <p class="text-base sm:text-lg text-slate-600 font-medium leading-relaxed max-w-md">
+    Aprenda a Língua Brasileira de Sinais com lições interativas, práticas e visuais projetadas para todas as idades.
+  </p>
+</div>
+<div class="w-full max-w-sm mt-8 flex flex-col gap-4"><button id="openRegisterBtnHero" class="btn-3d btn-primary-3d w-full py-4 px-6 rounded-2xl text-white font-black text-base tracking-widest uppercase text-center block shadow-lg hover:shadow-xl transition-all cursor-pointer" data-purpose="primary-get-started" type="button" onclick="const m = document.getElementById('loginModalOverlay'); const c = document.getElementById('loginModalCard'); m.classList.remove('hidden', 'opacity-0', 'pointer-events-none'); m.classList.add('flex', 'opacity-100', 'pointer-events-auto'); if(c) { c.classList.remove('scale-95'); c.classList.add('scale-100'); } if(document.getElementById('tabBtnRegister')) document.getElementById('tabBtnRegister').click();">Começar Agora</button><div class="flex items-center justify-center gap-2 pt-1 text-sm font-bold text-slate-500"><span class="">Já tem uma conta?</span><button id="openLoginBtnHero" class="font-black text-brand-blue hover:text-brand-blueDark hover:underline uppercase text-xs tracking-wider transition-colors cursor-pointer" type="button">Fazer Login</button></div></div></div>
+<!-- END: HeroCTAColumn -->
+</div>
+</section>
+<!-- BEGIN: TrustBanner -->
+<section class="border-t border-slate-200/90 bg-white py-10 mt-auto"><div class="max-w-7xl mx-auto px-4 sm:px-8 py-2">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-10">
+    <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-50/60 border border-slate-100 transition-all hover:bg-slate-50">
+      <div class="w-12 h-12 rounded-2xl bg-amber-100 text-brand-yellowDark flex items-center justify-center shrink-0">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+      </div>
+      <div>
+        <h3 class="text-base font-extrabold text-slate-800">Eficaz e Divertido</h3>
+        <p class="text-sm text-slate-500 mt-1 leading-relaxed">
+          Lições em formato de microjogos rápidos de 5 minutos que mantêm você motivado todos os dias.
+        </p>
+      </div>
+    </div>
+    <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-50/60 border border-slate-100 transition-all hover:bg-slate-50">
+      <div class="w-12 h-12 rounded-2xl bg-blue-100 text-brand-blue flex items-center justify-center shrink-0">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+        </svg>
+      </div>
+      <div>
+        <h3 class="text-base font-extrabold text-slate-800">Baseado em Evidências</h3>
+        <p class="text-sm text-slate-500 mt-1 leading-relaxed">
+          Desenvolvido com educadores e especialistas surdos para garantir sinais naturais e contextuais.
+        </p>
+      </div>
+    </div>
+    <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-50/60 border border-slate-100 transition-all hover:bg-slate-50">
+      <div class="w-12 h-12 rounded-2xl bg-purple-100 text-brand-purple flex items-center justify-center shrink-0">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+          <circle cx="9" cy="7" r="4"></circle>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+        </svg>
+      </div>
+      <div>
+        <h3 class="text-base font-extrabold text-slate-800">Acessível para Todos</h3>
+        <p class="text-sm text-slate-500 mt-1 leading-relaxed">
+          Ideal para crianças, familiares, educadores e curiosos que desejam criar pontes de comunicação.
+        </p>
+      </div>
+    </div>
+  </div>
+</div></section>
+<!-- END: TrustBanner -->
+</main>
+<!-- END: MainContent -->
+<!-- BEGIN: LoginModal -->
+<div aria-labelledby="modalTitle" aria-modal="true" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-200 hidden" id="loginModalOverlay" role="dialog"><div class="bg-white rounded-3xl w-full max-w-md p-6 sm:p-8 shadow-2xl border border-slate-100 transform scale-95 transition-transform duration-200 relative max-h-[92vh] overflow-y-auto" data-purpose="auth-modal-container" id="loginModalCard"><button aria-label="Fechar janela" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 p-2 rounded-xl hover:bg-slate-100 transition-colors cursor-pointer" id="closeLoginBtn" type="button" onclick="const m = document.getElementById('loginModalOverlay'); const c = document.getElementById('loginModalCard'); m.classList.add('hidden', 'opacity-0', 'pointer-events-none'); m.classList.remove('flex', 'opacity-100', 'pointer-events-auto'); if(c) { c.classList.add('scale-95'); c.classList.remove('scale-100'); }"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg></button><div class="flex items-center justify-center gap-2 mb-6"><div class="w-8 h-8 rounded-xl overflow-hidden shrink-0"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBW9N146_koeeKHAoTrsuhr2gb5lxr_2jLTF2q96K-l87-NHXh_QkFuHjLP7gDu2n8-cARGADgseE6myD9_Mz2TLiaZS1y7PwEA40289iy9k9CstyIHqZUBF5V2-aywlWkT3_IMC7Ppi_UzoXqgM4zyzdNSkj1VPruFClDXV-wZVVmNov4TfpxBVyeodhVkD-e_KJ_o6b0NWUQurU0I6FkpMJDammbpYGMpTwUzOreLYZtdZ6kS7blSM4PC957vbkod-zY" alt="Logo Lumi Libras" class="w-full h-full object-contain"></div><span class="text-xl font-black tracking-tight text-brand-blue">lumi<span class="text-brand-yellow">libras</span></span></div><div class="grid grid-cols-2 p-1 bg-slate-100 rounded-2xl mb-6"><button id="tabBtnLogin" type="button" class="py-2.5 rounded-xl font-extrabold text-xs sm:text-sm tracking-wide uppercase transition-all bg-white text-brand-blue shadow-sm cursor-pointer">Entrar</button><button id="tabBtnRegister" type="button" class="py-2.5 rounded-xl font-extrabold text-xs sm:text-sm tracking-wide uppercase transition-all text-slate-500 hover:text-slate-800 cursor-pointer">Cadastrar-se</button></div><div id="loginPanelContent"><div class="text-center mb-5"><h2 class="text-2xl font-black text-slate-800 tracking-tight" id="modalTitle">Bem-vindo de volta! 👋</h2><p class="text-xs font-bold text-slate-400 mt-1 uppercase tracking-wider">Continue sua jornada de aprendizado</p></div><form class="space-y-3.5" onsubmit="event.preventDefault();"><div><label class="block text-xs font-black text-slate-600 uppercase tracking-wider mb-1.5">E-mail ou Usuário</label><input class="w-full px-4 py-3 rounded-2xl bg-slate-50 border-2 border-slate-200 text-sm font-bold text-slate-700 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-brand-blue focus:ring-0 transition-colors" placeholder="seu@email.com" required="" type="text"></div><div class="relative"><div class="flex items-center justify-between mb-1.5"><label class="block text-xs font-black text-slate-600 uppercase tracking-wider">Senha</label><a class="text-[11px] font-black text-brand-blue hover:underline uppercase" href="#">Esqueceu?</a></div><input class="w-full px-4 py-3 rounded-2xl bg-slate-50 border-2 border-slate-200 text-sm font-bold text-slate-700 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-brand-blue focus:ring-0 transition-colors" placeholder="Sua senha secreta" required="" type="password"></div><button class="btn-3d btn-primary-3d w-full py-3.5 rounded-2xl text-white font-black text-sm uppercase tracking-wider block mt-3 shadow-md hover:shadow-lg cursor-pointer" type="submit">Entrar na Conta</button></form><div class="relative my-5 text-center"><div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-200"></div></div><span class="relative bg-white px-3 text-xs font-black text-slate-400 uppercase tracking-widest">ou</span></div><div class="space-y-2"><button class="btn-social-3d w-full py-2.5 px-4 rounded-2xl bg-white hover:bg-slate-50 flex items-center justify-center gap-3 transition-colors cursor-pointer" type="button"><svg class="w-4 h-4" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"></path><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"></path></svg><span class="text-xs font-black text-slate-700 uppercase tracking-wide">Continuar com Google</span></button></div><div class="mt-5 pt-4 border-t border-slate-100 text-center"><p class="text-xs font-bold text-slate-500">Não tem conta? <button id="switchToRegisterBtn" class="font-black text-brand-blue uppercase hover:underline ml-1 cursor-pointer" type="button">Cadastre-se grátis</button></p></div></div><div id="registerPanelContent" class="hidden"><div class="text-center mb-5"><h2 class="text-2xl font-black text-slate-800 tracking-tight">Crie sua conta grátis 🚀</h2><p class="text-xs font-bold text-slate-400 mt-1 uppercase tracking-wider">Aprenda Libras no seu ritmo</p></div><form class="space-y-3.5" onsubmit="event.preventDefault();"><div><label class="block text-xs font-black text-slate-600 uppercase tracking-wider mb-1.5">Seu Nome</label><input class="w-full px-4 py-3 rounded-2xl bg-slate-50 border-2 border-slate-200 text-sm font-bold text-slate-700 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-brand-blue focus:ring-0 transition-colors" placeholder="Como quer ser chamado?" required="" type="text"></div><div><label class="block text-xs font-black text-slate-600 uppercase tracking-wider mb-1.5">E-mail</label><input class="w-full px-4 py-3 rounded-2xl bg-slate-50 border-2 border-slate-200 text-sm font-bold text-slate-700 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-brand-blue focus:ring-0 transition-colors" placeholder="seu@email.com" required="" type="email"></div><div><label class="block text-xs font-black text-slate-600 uppercase tracking-wider mb-1.5">Criar Senha</label><input class="w-full px-4 py-3 rounded-2xl bg-slate-50 border-2 border-slate-200 text-sm font-bold text-slate-700 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-brand-blue focus:ring-0 transition-colors" placeholder="Mínimo 6 caracteres" required="" type="password"></div><div><label class="block text-xs font-black text-slate-600 uppercase tracking-wider mb-1.5">Quem vai aprender?</label><div class="grid grid-cols-3 gap-2"><label class="flex flex-col items-center p-2 rounded-xl border-2 border-brand-blue bg-blue-100/40 text-center cursor-pointer transition-all hover:border-brand-blue"><input type="radio" name="user_role" value="crianca" checked="" class="hidden"><span class="text-base mb-0.5">🧒</span><span class="text-[11px] font-black text-slate-700">Criança</span></label><label class="flex flex-col items-center p-2 rounded-xl border-2 border-slate-200 bg-slate-50 text-center cursor-pointer transition-all hover:border-brand-blue"><input type="radio" name="user_role" value="familia" class="hidden"><span class="text-base mb-0.5">🏡</span><span class="text-[11px] font-black text-slate-700">Família</span></label><label class="flex flex-col items-center p-2 rounded-xl border-2 border-slate-200 bg-slate-50 text-center cursor-pointer transition-all hover:border-brand-blue"><input type="radio" name="user_role" value="educador" class="hidden"><span class="text-base mb-0.5">🎓</span><span class="text-[11px] font-black text-slate-700">Educador</span></label></div></div><button class="btn-3d btn-primary-3d w-full py-3.5 rounded-2xl text-white font-black text-sm uppercase tracking-wider block mt-3 shadow-md hover:shadow-lg cursor-pointer" type="submit">Criar Minha Conta</button></form><div class="mt-5 pt-4 border-t border-slate-100 text-center"><p class="text-xs font-bold text-slate-500">Já tem uma conta? <button id="switchToLoginBtn" class="font-black text-brand-blue uppercase hover:underline ml-1 cursor-pointer" type="button">Fazer login</button></p></div></div></div></div>
+<!-- END: LoginModal -->
+<!-- BEGIN: ModalLogicScript -->
+<script data-purpose="login-modal-handlers">
+    document.addEventListener('DOMContentLoaded', () => {
+      const modal = document.getElementById('loginModalOverlay');
+      const card = document.getElementById('loginModalCard');
+      const openBtnNav = document.getElementById('openLoginBtnNav');
+      const openBtnHero = document.getElementById('openLoginBtnHero');
+      const closeBtn = document.getElementById('closeLoginBtn');
+
+      function openModal() {
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        modal.classList.add('opacity-100', 'pointer-events-auto');
+        card.classList.remove('scale-95');
+        card.classList.add('scale-100');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+        modal.classList.add('opacity-0', 'pointer-events-none');
+        modal.classList.remove('opacity-100', 'pointer-events-auto');
+        card.classList.add('scale-95');
+        card.classList.remove('scale-100');
+        document.body.style.overflow = '';
+      }
+
+      if (openBtnNav) openBtnNav.addEventListener('click', openModal);
+      if (openBtnHero) openBtnHero.addEventListener('click', openModal);
+      if (closeBtn) closeBtn.addEventListener('click', closeModal);
+
+      // Close when clicking overlay backdrop
+      modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+          closeModal();
+        }
+      });
+
+      // Close on Esc key
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !modal.classList.contains('pointer-events-none')) {
+          closeModal();
+        }
+      });
+    });
+  </script>
+<!-- END: ModalLogicScript -->
+
+
+
+
+
+
+<script data-purpose="auth-modal-interactivity" class="">(function() { function initAuthModal() { const modal = document.getElementById('loginModalOverlay'); const card = document.getElementById('loginModalCard'); const closeBtn = document.getElementById('closeLoginBtn'); const tabBtnLogin = document.getElementById('tabBtnLogin'); const tabBtnRegister = document.getElementById('tabBtnRegister'); const loginPanel = document.getElementById('loginPanelContent'); const registerPanel = document.getElementById('registerPanelContent'); const switchToRegisterBtn = document.getElementById('switchToRegisterBtn'); const switchToLoginBtn = document.getElementById('switchToLoginBtn'); function setTab(tab) { if (tab === 'login') { if (tabBtnLogin) { tabBtnLogin.className = 'py-2.5 rounded-xl font-extrabold text-xs sm:text-sm tracking-wide uppercase transition-all bg-white text-brand-blue shadow-sm cursor-pointer'; } if (tabBtnRegister) { tabBtnRegister.className = 'py-2.5 rounded-xl font-extrabold text-xs sm:text-sm tracking-wide uppercase transition-all text-slate-500 hover:text-slate-800 cursor-pointer'; } if (loginPanel) loginPanel.classList.remove('hidden'); if (registerPanel) registerPanel.classList.add('hidden'); } else { if (tabBtnRegister) { tabBtnRegister.className = 'py-2.5 rounded-xl font-extrabold text-xs sm:text-sm tracking-wide uppercase transition-all bg-white text-brand-blue shadow-sm cursor-pointer'; } if (tabBtnLogin) { tabBtnLogin.className = 'py-2.5 rounded-xl font-extrabold text-xs sm:text-sm tracking-wide uppercase transition-all text-slate-500 hover:text-slate-800 cursor-pointer'; } if (registerPanel) registerPanel.classList.remove('hidden'); if (loginPanel) loginPanel.classList.add('hidden'); } } function openModal(initialTab) { setTab(initialTab || 'login'); if (modal && card) { modal.classList.remove('opacity-0', 'pointer-events-none'); modal.classList.add('opacity-100', 'pointer-events-auto'); card.classList.remove('scale-95'); card.classList.add('scale-100'); document.body.style.overflow = 'hidden'; } } function closeModal() { if (modal && card) { modal.classList.add('opacity-0', 'pointer-events-none'); modal.classList.remove('opacity-100', 'pointer-events-auto'); card.classList.add('scale-95'); card.classList.remove('scale-100'); document.body.style.overflow = ''; } } const openLoginNav = document.getElementById('openLoginBtnNav'); const openRegNav = document.getElementById('openRegisterBtnNav'); const openHeroReg = document.getElementById('openRegisterBtnHero'); const openHeroLogin = document.getElementById('openLoginBtnHero'); if (openLoginNav) openLoginNav.onclick = () => openModal('login'); if (openRegNav) openRegNav.onclick = () => openModal('register'); if (openHeroReg) openHeroReg.onclick = () => openModal('register'); if (openHeroLogin) openHeroLogin.onclick = () => openModal('login'); if (closeBtn) closeBtn.onclick = closeModal; if (tabBtnLogin) tabBtnLogin.onclick = () => setTab('login'); if (tabBtnRegister) tabBtnRegister.onclick = () => setTab('register'); if (switchToRegisterBtn) switchToRegisterBtn.onclick = () => setTab('register'); if (switchToLoginBtn) switchToLoginBtn.onclick = () => setTab('login'); if (modal) { modal.onclick = (e) => { if (e.target === modal) closeModal(); }; } document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal && !modal.classList.contains('pointer-events-none')) { closeModal(); } }); const roleLabels = document.querySelectorAll('input[name="user_role"]'); roleLabels.forEach(radio => { radio.addEventListener('change', () => { roleLabels.forEach(r => { const parent = r.closest('label'); if (parent) { parent.className = 'flex flex-col items-center p-2 rounded-xl border-2 border-slate-200 bg-slate-50 text-center cursor-pointer transition-all hover:border-brand-blue'; } }); const checkedParent = radio.closest('label'); if (checkedParent) { checkedParent.className = 'flex flex-col items-center p-2 rounded-xl border-2 border-brand-blue bg-blue-100/40 text-center cursor-pointer transition-all hover:border-brand-blue'; } }); }); } if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initAuthModal); } else { initAuthModal(); } })();</script></body></html>

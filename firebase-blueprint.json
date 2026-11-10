@@ -1,0 +1,78 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Perfil e progresso completo do usuário no Lumi Libras",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID único do usuário (UID do Firebase Auth)"
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 100,
+          "description": "Nome de exibição do usuário"
+        },
+        "email": {
+          "type": "string",
+          "maxLength": 150,
+          "description": "E-mail do usuário"
+        },
+        "role": {
+          "type": "string",
+          "enum": ["geral", "crianca", "familia", "educador"],
+          "description": "Papel do aprendiz"
+        },
+        "avatar": {
+          "type": "string",
+          "maxLength": 20,
+          "description": "Avatar ou emoji do perfil"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp de criação"
+        },
+        "lastActiveDate": {
+          "type": "string",
+          "description": "Data do último acesso YYYY-MM-DD"
+        },
+        "stats": {
+          "type": "object",
+          "description": "Estatísticas do jogador (estrelas, streak, xp, nivel, acessibilidade)"
+        },
+        "completedTrailNodes": {
+          "type": "array",
+          "description": "Lista de IDs das lições da trilha concluídas"
+        },
+        "seenAlphabetLetters": {
+          "type": "array",
+          "description": "Lista de letras do alfabeto manual já exploradas"
+        },
+        "practicedWords": {
+          "type": "array",
+          "description": "Lista de IDs de sinais cotidianos já praticados"
+        },
+        "unlockedAchievements": {
+          "type": "array",
+          "description": "Lista de IDs de conquistas desbloqueadas"
+        },
+        "unlockedStickers": {
+          "type": "array",
+          "description": "Lista de figurinhas desbloqueadas"
+        },
+        "memoryGameWins": {
+          "type": "number",
+          "description": "Total de vitórias no jogo da memória"
+        }
+      },
+      "required": ["id", "name", "email", "role", "stats", "completedTrailNodes"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Documentos privados de progresso de cada usuário do Lumi Libras"
+    }
+  }
+}

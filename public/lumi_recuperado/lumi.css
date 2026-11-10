@@ -1,0 +1,104 @@
+/* Lumi: Nunito original, cenário, poses interativas e trilha arredondada.
+   As folhas de poses são exibidas por background-position, sem alterar os arquivos. */
+@font-face {
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: 200 1000;
+  font-display: swap;
+  src: url('assets/nunito.woff2') format('woff2');
+}
+body, button, select { font-family: Nunito, 'Trebuchet MS', sans-serif; }
+.brand small { font-size: 10px; }
+.welcome-stage {
+  min-height: 530px;
+  padding: 48px 50px;
+  background: radial-gradient(ellipse at 85% 80%, #7850d5 0, transparent 53%), #3457db;
+  border-radius: 36px;
+  grid-template-columns: 1fr 1.05fr;
+  align-items: center;
+  gap: 35px;
+}
+.welcome-copy h1 { font-size: clamp(2.8rem, 4.9vw, 4.1rem); letter-spacing: -1.7px; line-height: 1.04; }
+.welcome-copy > p { font-size: 1.08rem; max-width: 430px; }
+.welcome-copy .button { padding: 18px 30px; border-radius: 18px; }
+.lumi-presentation { justify-content: center; }
+.speech-bubble { max-width: 365px; transform: none; padding: 18px 22px; border: 2px solid #e3d9ff; }
+.speech-bubble::after { content: ''; position: absolute; bottom: -11px; left: 47%; width: 20px; height: 20px; background: white; transform: rotate(45deg); }
+.speech-bubble p { min-height: 48px; }
+.lumi-world { width: 100%; height: 280px; position: relative; display: grid; place-items: center; margin-top: 8px; }
+.lumi-character { position: relative; z-index: 2; border: 0; background: transparent; width: 240px; padding: 0; border-radius: 42%; }
+.lumi-sprite { display: block; width: 100%; aspect-ratio: 344 / 384; background-image: url('assets/lumi-poses.jpeg'); background-size: 400% 200%; background-position: 0% 0%; border-radius: 42%; }
+.lumi-sprite[data-pose='1'] { background-position: 33.333% 0%; }
+.lumi-sprite[data-pose='2'] { background-position: 66.666% 0%; }
+.lumi-sprite[data-pose='3'] { background-position: 100% 0%; }
+.lumi-sprite[data-pose='4'] { background-position: 0% 100%; }
+.lumi-sprite[data-pose='5'] { background-position: 33.333% 100%; }
+.lumi-sprite[data-pose='6'] { background-position: 66.666% 100%; }
+.lumi-sprite[data-pose='7'] { background-position: 100% 100%; }
+.lumi-sprite.celebrating { background-image: url('assets/lumi-celebration.jpeg'); }
+.lumi-character:hover { filter: brightness(1.04); }
+#lumi-idle-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 42%; background: #172857; }
+.lumi-character.reacting #lumi-idle-video { visibility: hidden; }
+.orbit { position: absolute; border: 1px solid #ffffff30; border-radius: 50%; width: 350px; height: 115px; bottom: 24px; transform: rotate(-12deg); }
+.orbit-two { width: 320px; transform: rotate(15deg); height: 145px; }
+.world-star { position: absolute; color: var(--yellow); font-size: 46px; }
+.star-one { top: 45px; right: 8%; }.star-two { bottom: 55px; left: 7%; font-size: 33px; }
+.world-label { position: absolute; bottom: -4px; font-size: 10px; font-weight: 900; letter-spacing: 1.3px; color: #eae4ff; }
+.lumi-choices { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 20px; }
+.lumi-choices button { background: #ffffff; padding: 10px 12px; box-shadow: 0 3px 0 #2a379d; font-size: 12px; }
+.motion-button { margin-top: 13px; }
+.activity-card { border-radius: 25px; border-bottom-width: 7px; }
+.activity-card h3 { font-weight: 950; }.card-label { font-size: 11px; }
+.activity-symbol { border-radius: 19px; transform: rotate(-5deg); }
+.activity-card:nth-child(even) .activity-symbol { transform: rotate(5deg); }
+.button:active, .letter-button:active { transform: translateY(3px); box-shadow: none; }
+
+/* Abertura real em vídeo, sempre pulável; sem dependência de áudio. */
+.intro-dialog { width: min(1000px, calc(100% - 24px)); padding: 0; background: #15285a; color: white; overflow: auto; }
+.intro-dialog::backdrop { background: #0e1a3ce8; }
+.intro-top { display: flex; justify-content: space-between; align-items: center; padding: 15px 23px; gap: 12px; }
+.intro-top > span { font-weight: 950; letter-spacing: 2px; font-size: 13px; color: var(--yellow); }
+.intro-top .button { padding: 10px 14px; font-size: 13px; }
+#intro-video { display: block; width: 100%; max-height: 54dvh; object-fit: contain; background: #101933; }
+.intro-bottom { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 22px 26px; }
+.intro-bottom .eyebrow { color: #c8b8ff; font-size: 10px; }.intro-bottom h2 { margin-bottom: 7px; font-size: 25px; padding: 0; }
+.intro-bottom p { color: #dfe6fb; font-size: 14px; margin: 0; }.intro-bottom .button { flex-shrink: 0; }
+
+/* Trilha inspirada na primeira versão: círculos, caminho pontilhado e deslocamentos. */
+.trail-list { padding: 12px 8px 10px; }
+.trail-list li { padding: 24px 0; gap: 26px; align-items: flex-start; }
+.trail-list li:nth-child(2), .trail-list li:nth-child(4) { margin-left: 42px; }
+.trail-list li:nth-child(3) { margin-left: 20px; }
+.trail-list li:nth-child(5) { margin-left: 25px; }
+.trail-list li:not(:last-child)::before { width: 0; border-left: 4px dashed #d9d0ef; background: none; left: 35px; top: 98px; bottom: -24px; }
+.level-node { width: 76px; height: 76px; border: 5px solid white; border-radius: 50%; background: #eef0fb; box-shadow: 0 5px 0 #d7d7e9; font-size: 26px; color: #7b78a0; }
+.level-node.current { border-color: white; background: var(--purple); box-shadow: 0 6px 0 #5834a1, 0 0 0 8px #ece3ff; }
+.level-node.completed { background: var(--teal); border-color: white; color: white; box-shadow: 0 5px 0 #006d79; }
+.trail-list h3 { font-size: 21px; font-weight: 950; }.trail-list .eyebrow { font-size: 12px; margin-top: 3px; }.trail-list p { font-size: 15px; }
+.trail-list .button { border-radius: 13px; padding: 12px 17px; }.progress-panel { background: #eeebff; }
+
+/* Companheiro integrado ao final das atividades, sem cobrir as cartas. */
+.lumi-coach { max-width: 720px; margin: 26px auto 0; padding: 14px 24px 14px 10px; display: flex; gap: 16px; align-items: center; background: #fff; border: 2px solid #dbd0f3; border-bottom-width: 5px; border-radius: 24px; }
+.coach-toggle { width: 100px; flex-shrink: 0; border: 0; padding: 0; background: none; border-radius: 30px; }
+.coach-toggle .lumi-sprite { border-radius: 28px; }.lumi-coach b { color: var(--purple); font-size: 17px; }.lumi-coach p { font-size: 15px; margin: 5px 0 0; }
+.lumi-coach .text-button { padding: 7px 0 0; font-size: 13px; }
+.lumi-coach.collapsed { width: 110px; padding: 5px; }.lumi-coach.collapsed #coach-content { display: none; }
+.lesson-bottom { display: flex; justify-content: center; gap: 20px; align-items: center; }.feedback .button { margin-left: 16px; }
+@media(max-width:760px) {
+  .site-header { gap: 12px 8px; padding: 12px 16px; }
+  .brand { font-size: 1.25rem; gap: 7px; }
+  .brand img { width: 35px; height: 45px; }
+  .brand small { font-size: 7px; letter-spacing: .7px; }
+  .header-tools { gap: 5px; }.stars { padding: 8px 10px; }
+  .welcome-stage { grid-template-columns: 1fr; padding: 30px 24px; gap: 30px; }
+  .welcome-copy h1 { font-size: 3.15rem; }.welcome-copy h1 br:last-of-type { display: inline; }
+  .lumi-presentation { display: flex; flex-direction: column; }.lumi-world { max-width: 380px; height: 270px; }
+  .lumi-character { width: 225px; }.welcome-stage .speech-bubble { max-width: 100%; }.speech-bubble p { min-height: 0; }
+  .orbit { width: 290px; }.orbit-two { width: 260px; }.intro-bottom { flex-direction: column; align-items: stretch; padding: 18px; }
+  .intro-bottom h2 { font-size: 21px; }.intro-top { padding: 13px; }
+  .lumi-coach { margin: 22px 18px 0; }.trail-list li:nth-child(n) { margin-left: 0; gap: 18px; }
+  .trail-list { padding: 8px 0; }.trail-list h3 { font-size: 19px; }.level-node { width: 65px; height: 65px; }
+  .trail-list li:not(:last-child)::before { left: 30px; top: 89px; }.lesson-bottom { flex-direction: column; }
+  .feedback .button { margin: 13px 0 0; }.lumi-coach p { font-size: 14px; }
+}
+@media(prefers-reduced-motion:reduce) { *, *::before, *::after { scroll-behavior: auto !important; } }

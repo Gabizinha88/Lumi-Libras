@@ -1,0 +1,67 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 1. Global Default-Deny Catch-All Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isValidUserProfile(data) {
+      return data.keys().hasAll(['id', 'name', 'email', 'role', 'stats', 'completedTrailNodes'])
+        && data.id is string && data.id.size() <= 128
+        && data.name is string && data.name.size() <= 100
+        && data.email is string && data.email.size() <= 150
+        && data.role in ['geral', 'crianca', 'familia', 'educador']
+        && data.stats is map
+        && data.completedTrailNodes is list && data.completedTrailNodes.size() <= 50;
+    }
+
+    // Connection testing doc
+    match /test/connection {
+      allow read: if true;
+    }
+
+    // 2. Private User Profile Collection
+    match /users/{userId} {
+      // Leitura permitida apenas para o dono do perfil
+      allow get: if isOwner(userId) && isValidId(userId);
+      allow list: if false; // Proíbe enumeração de usuários
+
+      // Criação de perfil
+      allow create: if isOwner(userId)
+        && isValidId(userId)
+        && incoming().id == userId
+        && isValidUserProfile(incoming());
+
+      // Atualização de progresso
+      allow update: if isOwner(userId)
+        && isValidId(userId)
+        && incoming().id == existing().id
+        && isValidUserProfile(incoming());
+
+      // Exclusão de perfil
+      allow delete: if isOwner(userId) && isValidId(userId);
+    }
+  }
+}

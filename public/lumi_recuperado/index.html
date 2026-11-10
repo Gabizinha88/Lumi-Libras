@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#3454dd" />
+    <meta
+      name="description"
+      content="Aprenda Libras brincando com o Lumi! Alfabeto, sinais do dia a dia, jogo da memória e uma trilha de descobertas para crianças surdas e ouvintes."
+    />
+    <title>Lumi Libras — Pequenas mãos, grandes descobertas</title>
+    <link rel="icon" type="image/png" href="assets/logo.png" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preload" href="assets/nunito.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="lumi.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Pular para o conteúdo</a>
+    <!-- Cabeçalho e navegação: cada link abre uma atividade sem recarregar a página. -->
+    <header class="site-header">
+      <a class="brand" href="#inicio" aria-label="Lumi Libras, início"
+        ><img src="assets/logo.png" alt="" width="52" height="62" /><span
+          >Lumi <b>Libras</b><small>APRENDER CONECTA A GENTE</small></span
+        ></a
+      >
+      <nav aria-label="Atividades principais">
+        <a href="#inicio" aria-current="page">Início</a
+        ><a href="#alfabeto">Alfabeto</a
+        ><a href="#sinais">Sinais do dia a dia</a><a href="#memoria">Memória</a
+        ><a href="#trilha">Trilha</a>
+      </nav>
+      <div class="header-tools">
+        <span class="stars" aria-label="Estrelas conquistadas"
+          >★ <b id="star-count">0</b></span
+        ><button
+          class="icon-button"
+          id="help-button"
+          aria-label="Ajuda e fontes"
+        >
+          ?
+        </button>
+      </div>
+    </header>
+    <main id="main" tabindex="-1">
+      <!-- A apresentação é visual: nenhuma instrução depende de áudio. -->
+      <section id="inicio" class="page home-page" aria-labelledby="home-title">
+        <div class="welcome-stage">
+          <div class="welcome-copy">
+            <span class="eyebrow light"
+              >SUA PRÓXIMA DESCOBERTA COMEÇA AQUI</span
+            >
+            <h1 id="home-title">
+              Pequenas mãos.<br /><em>Grandes</em><br />descobertas.
+            </h1>
+            <p>
+              Eu sou o Lumi, seu companheiro de aventuras! Vamos descobrir
+              Libras, brincar e comemorar cada novo passo juntos?
+            </p>
+            <a class="button yellow" href="#atividades"
+              >Vamos começar <span aria-hidden="true">→</span></a
+            ><span class="welcome-note"
+              >No seu ritmo. Do seu jeito. Juntos.</span
+            >
+          </div>
+          <div class="lumi-presentation">
+            <div class="speech-bubble">
+              <b>Oi! Eu sou o Lumi! <span aria-hidden="true">✦</span></b>
+              <p id="lumi-message">
+                Vou acompanhar você em cada descoberta. Vamos brincar de
+                aprender?
+              </p>
+              <button id="lumi-next" class="bubble-next">
+                Me conta mais <span aria-hidden="true">→</span>
+              </button>
+            </div>
+            <!-- O vídeo enviado é a animação 3D de abertura. As poses reagem às ações. -->
+            <div class="lumi-world">
+              <span class="orbit orbit-one" aria-hidden="true"></span>
+              <span class="orbit orbit-two" aria-hidden="true"></span>
+              <button id="lumi-character" class="lumi-character" aria-label="Interagir com o Lumi">
+                <video id="lumi-idle-video" src="assets/lumi-intro.mp4" muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1"></video>
+                <span class="lumi-sprite" data-pose="0" role="img" aria-label="Lumi abraça sua estrela"></span>
+              </button>
+              <span class="world-star star-one" aria-hidden="true">✦</span>
+              <span class="world-star star-two" aria-hidden="true">✧</span>
+              <span class="world-label">SEU COMPANHEIRO DE DESCOBERTAS</span>
+            </div>
+            <div class="lumi-choices" aria-label="Converse com Lumi">
+              <button id="lumi-teach" class="bubble-next">Aprender um sinal</button>
+              <button id="lumi-cheer" class="bubble-next">Toca aqui! ✋</button>
+              <button id="intro-replay" class="bubble-next">▷ Ver abertura</butt on>
+            </div>
+            <button
+              id="motion-button"
+              class="motion-button"
+              aria-pressed="false"
+            >
+              Ⅱ Pausar animações
+            </button>
+          </div>
+        </div>
+        <div class="section-heading" id="atividades">
+          <div>
+            <span class="eyebrow">QUAL VAI SER A DESCOBERTA DE HOJE?</span>
+            <h2>Escolha e vem brincar!</h2>
+          </div>
+          <span class="gentle-note"
+            >Vale explorar tudo <span aria-hidden="true">✦</span></span
+          >
+        </div>
+        <div class="activity-grid">
+          <a href="#alfabeto" class="activity-card blue"
+            ><span class="activity-symbol" aria-hidden="true">Aa</span
+            ><span class="card-label">PRIMEIRAS DESCOBERTAS</span>
+            <h3>Alfabeto em Libras</h3>
+            <p>Conheça as 26 letras e descubra como fazer com as mãos.</p>
+            <span class="card-action">Explorar letras <b>→</b></span></a
+          >
+          <a href="#sinais" class="activity-card purple"
+            ><span class="activity-symbol" aria-hidden="true">💬</span
+            ><span class="card-label">PARA SE CONECTAR</span>
+            <h3>Sinais do dia a dia</h3>
+            <p>Um oi, a família e a escola: sinais para usar de verdade.</p>
+            <span class="card-action">Descobrir sinais <b>→</b></span></a
+          >
+          <a href="#memoria" class="activity-card pink"
+            ><span class="activity-symbol" aria-hidden="true">▦</span
+            ><span class="card-label">UM PAR DE CADA VEZ</span>
+            <h3>Jogo da memória</h3>
+            <p>Vire as cartas e encontre a letra que combina com cada mão.</p>
+            <span class="card-action">Quero jogar <b>→</b></span></a
+          >
+          <a href="#trilha" class="activity-card teal"
+            ><span class="activity-symbol" aria-hidden="true">⚑</span
+            ><span class="card-label">UMA AVENTURA SUA</span>
+            <h3>Trilha de aprendizado</h3>
+            <p>Resolva pequenos desafios e colecione suas conquistas.</p>
+            <span class="card-action">Seguir a trilha <b>→</b></span></a
+          >
+        </div>
+        <aside class="together-note">
+          <span aria-hidden="true">✦</span>
+          <div>
+            <h3>Aprender fica ainda melhor em companhia.</h3>
+            <p>
+              Convide alguém da família ou um amigo para descobrir os sinais com
+              você.
+            </p>
+          </div>
+          <a href="#sinais" class="button white">Vamos juntos →</a>
+        </aside>
+      </section>
+      <section
+        id="alfabeto"
+        class="page"
+        hidden
+        aria-labelledby="alphabet-title"
+      >
+        <div class="page-heading">
+          <span class="eyebrow">DE A A Z</span>
+          <h1 id="alphabet-title">O alfabeto nas suas mãos</h1>
+          <p>Escolha uma letra, observe a mão e experimente fazer também.</p>
+        </div>
+        <div id="alphabet-content"></div>
+      </section>
+      <section id="sinais" class="page" hidden aria-labelledby="words-title">
+        <div class="page-heading">
+          <span class="eyebrow">PEQUENOS SINAIS, GRANDES CONVERSAS</span>
+          <h1 id="words-title">Sinais do dia a dia</h1>
+          <p>
+            Escolha um tema para aprender sinais que fazem parte da sua vida.
+          </p>
+        </div>
+        <div id="words-content"></div>
+      </section>
+      <section id="memoria" class="page" hidden aria-labelledby="memory-title">
+        <div class="page-heading">
+          <span class="eyebrow">OLHE, LEMBRE E COMBINE</span>
+          <h1 id="memory-title">Jogo da memória</h1>
+          <p>
+            Uma letra e uma mão formam um par. Sem pressa e sem perder vidas!
+          </p>
+        </div>
+        <div id="memory-content"></div>
+      </section>
+      <section id="trilha" class="page" hidden aria-labelledby="trail-title">
+        <div class="page-heading">
+          <span class="eyebrow">CADA PASSO É UMA DESCOBERTA</span>
+          <h1 id="trail-title">Sua trilha de aprendizado</h1>
+          <p>
+            Observe, pratique e conquiste estrelas. Você pode repetir quando
+            quiser.
+          </p>
+        </div>
+        <div id="trail-content"></div>
+      </section>
+    </main>
+    <!-- Ajuda contextual permanece disponível nas atividades. -->
+    <aside id="lumi-coach" class="lumi-coach" hidden aria-label="Ajuda do Lumi">
+      <button id="coach-toggle" class="coach-toggle" aria-expanded="true" aria-controls="coach-content" aria-label="Mostrar ou recolher ajuda do Lumi">
+        <span class="lumi-sprite" data-pose="4" aria-hidden="true"></span>
+      </button>
+      <div id="coach-content">
+        <b>Lumi está com você</b>
+        <p id="coach-message" role="status">Uma descoberta de cada vez. Vamos juntos!</p>
+        <button id="coach-hint" class="text-button">Me dá uma dica →</button>
+      </div>
+    </aside>
+    <footer>
+      <a class="footer-brand" href="#inicio">Lumi Libras <span>✦</span></a>
+      <p>Aprender, brincar e se conectar.</p>
+      <button id="sources-button">Para famílias e educadores · Fontes</button>
+    </footer>
+    <p id="storage-warning" class="storage-warning" hidden>
+      O progresso não pôde ser salvo neste navegador. Você pode continuar
+      jogando!
+    </p>
+    <div
+      id="announcement"
+      class="sr-only"
+      role="status"
+      aria-live="polite"
+    ></div>
+    <!-- O diálogo nativo oferece foco, Escape e acessibilidade sem bibliotecas. -->
+    <dialog id="detail-dialog" aria-labelledby="dialog-title">
+      <button class="close-dialog" aria-label="Fechar">×</button>
+      <div id="dialog-content"></div>
+    </dialog>
+    <dialog id="intro-dialog" class="intro-dialog" aria-labelledby="intro-title">
+      <div class="intro-top"><span>✦ LUMI LIBRAS</span><button id="intro-skip" class="button white">Pular abertura →</button></div>
+      <video id="intro-video" src="assets/lumi-intro.mp4" muted playsinline preload="metadata" controls aria-label="Lumi, um monstrinho turquesa, flutuando no espaço"></video>
+      <div class="intro-bottom"><div><span class="eyebrow">PREPARE SUAS MÃOS E SUA CURIOSIDADE</span><h2 id="intro-title">Uma aventura espera por você!</h2><p id="intro-status">Conheça o Lumi. Depois, escolha sua primeira descoberta.</p></div><button id="intro-enter" class="button yellow">Entrar e brincar →</button></div>
+    </dialog>
+    <script src="data.js" defer></script>
+    <script src="app.js" defer></script>
+    <script src="lumi.js" defer></script>
+  </body>
+</html>

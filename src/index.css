@@ -1,0 +1,137 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Libras2016';
+  src: url('/fonts/Libras-2016.ttf') format('truetype');
+  font-display: swap;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  body {
+    font-family: 'Nunito', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+  h1, h2, h3, h4, .font-display {
+    font-family: 'Nunito', 'Outfit', system-ui, sans-serif;
+  }
+}
+
+html.dark, body.dark {
+  background-color: #0A1128;
+  color: #E2E8F0;
+}
+
+@keyframes float-gentle {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(1.5deg);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.5);
+  }
+  70% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 16px rgba(37, 99, 235, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0);
+  }
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0.3; transform: scale(0.8) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.2) rotate(180deg); }
+}
+
+.animate-float-gentle {
+  animation: float-gentle 4s ease-in-out infinite;
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-sparkle-slow {
+  animation: sparkle 3s ease-in-out infinite;
+}
+
+/* Accessible high-contrast mode helper */
+body.high-contrast {
+  filter: contrast(125%);
+}
+
+/* Tactile 3D Buttons & Animations from Lumi Libras Stitch */
+.btn-3d {
+  transition: all 0.1s ease-in-out;
+  position: relative;
+}
+.btn-3d:active {
+  transform: translateY(4px);
+}
+.btn-primary-3d {
+  background-color: #2952E3;
+  box-shadow: 0 4px 0 #18318C;
+}
+.btn-primary-3d:hover {
+  background-color: #3860F2;
+}
+.btn-primary-3d:active {
+  box-shadow: 0 0 0 #18318C;
+}
+
+.btn-secondary-3d {
+  background-color: #FFFFFF;
+  box-shadow: 0 4px 0 #CBD5E1;
+  border: 2px solid #E2E8F0;
+}
+.btn-secondary-3d:hover {
+  background-color: #F8FAFC;
+}
+.btn-secondary-3d:active {
+  box-shadow: 0 0 0 #CBD5E1;
+}
+
+.btn-social-3d {
+  box-shadow: 0 3px 0 #E2E8F0;
+  border: 2px solid #E2E8F0;
+}
+.btn-social-3d:active {
+  transform: translateY(3px);
+  box-shadow: 0 0 0 #E2E8F0;
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(2deg); }
+}
+@keyframes floatReverse {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(6px) rotate(-3deg); }
+}
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.08); }
+}
+
+.anim-float {
+  animation: floatSlow 5s ease-in-out infinite;
+}
+.anim-float-alt {
+  animation: floatReverse 6s ease-in-out infinite;
+}
+.star-glow {
+  animation: pulseGlow 4s ease-in-out infinite;
+}
+
+.font-outfit {
+  font-family: 'Nunito', 'Outfit', sans-serif !important;
+}

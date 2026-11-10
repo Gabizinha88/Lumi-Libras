@@ -1,0 +1,6 @@
+{
+  "name": "Lumi Libras",
+  "description": "Lumi Libras - Aprender Brincando: Plataforma interativa e lúdica para aprender a Língua Brasileira de Sinais (Libras) com trilha de desafios, alfabeto manual, sinais do dia a dia e jogos da memória.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
