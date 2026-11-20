@@ -23,6 +23,17 @@ html.dark, body.dark {
   color: #E2E8F0;
 }
 
+/* High visibility pure white hand outlines in dark mode */
+html.dark img[src*="/assets/signs/"],
+body.dark img[src*="/assets/signs/"],
+.dark img[src*="/assets/signs/"],
+html.dark img[alt*="Sinal"],
+body.dark img[alt*="Sinal"],
+html.dark img[alt*="sinal"],
+body.dark img[alt*="sinal"] {
+  filter: brightness(0) invert(1) drop-shadow(0 0 1px rgba(255, 255, 255, 0.45));
+}
+
 @keyframes float-gentle {
   0%, 100% {
     transform: translateY(0px) rotate(0deg);
@@ -64,9 +75,78 @@ html.dark, body.dark {
   animation: sparkle 3s ease-in-out infinite;
 }
 
-/* Accessible high-contrast mode helper */
+/* Accessible high-contrast mode helper - zero layout shift, preserves viewport positioning */
 body.high-contrast {
-  filter: contrast(125%);
+  --tw-border-opacity: 1;
+}
+
+body.high-contrast :is(h1, h2, h3, h4, h5, h6, p, span, strong, label, button, a) {
+  font-weight: 700 !important;
+}
+
+body.high-contrast :is(.border, .border-t, .border-b, .border-l, .border-r) {
+  border-color: #0f172a !important;
+}
+
+html.dark body.high-contrast :is(.border, .border-t, .border-b, .border-l, .border-r) {
+  border-color: #cbd5e1 !important;
+}
+
+body.high-contrast button {
+  outline: 2px solid transparent;
+  outline-offset: 1px;
+}
+
+body.high-contrast button:focus-visible {
+  outline: 3px solid #2563eb !important;
+  outline-offset: 2px !important;
+}
+
+html.dark body.high-contrast button:focus-visible {
+  outline: 3px solid #38bdf8 !important;
+}
+
+/* Real font enlargement scaling - scales all rem-based typography by ~22% */
+html.font-size-large {
+  font-size: 122% !important;
+}
+
+/* Accessible Colorblind Mode - Symbol and high distinction color palette */
+body.colorblind-mode {
+  --colorblind-accent: #2563eb;
+  --colorblind-warning: #d97706;
+}
+
+/* Reinforces success/error badges with explicit symbols and distinct contrast */
+body.colorblind-mode .text-emerald-600,
+body.colorblind-mode .text-emerald-500,
+body.colorblind-mode .text-green-600 {
+  color: #1d4ed8 !important; /* Uses deep accessible cobalt blue */
+  font-weight: 800 !important;
+}
+
+body.colorblind-mode .bg-emerald-500,
+body.colorblind-mode .bg-emerald-600,
+body.colorblind-mode .bg-green-500 {
+  background-color: #2563eb !important;
+}
+
+body.colorblind-mode .text-rose-600,
+body.colorblind-mode .text-red-600 {
+  color: #b45309 !important; /* Uses warm high-contrast amber/brick */
+  font-weight: 800 !important;
+}
+
+body.colorblind-mode .border-emerald-500,
+body.colorblind-mode .border-green-500 {
+  border-color: #2563eb !important;
+  border-width: 2px !important;
+}
+
+body.colorblind-mode .border-rose-500,
+body.colorblind-mode .border-red-500 {
+  border-color: #b45309 !important;
+  border-width: 2px !important;
 }
 
 /* Tactile 3D Buttons & Animations from Lumi Libras Stitch */

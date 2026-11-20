@@ -18,6 +18,8 @@ export interface UserStats {
   highContrast: boolean;
   darkMode: boolean;
   fontSize: 'normal' | 'large';
+  colorblindMode?: boolean;
+  lastHighFiveDate?: string; // Data 'YYYY-MM-DD' do último Toca aqui
   weeklyTrainedDates?: string[]; // Array de strings 'YYYY-MM-DD' dos treinos concluídos
 }
 

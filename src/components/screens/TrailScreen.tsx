@@ -134,6 +134,103 @@ export const TrailScreen: React.FC<TrailScreenProps> = ({
   const totalStages = ALPHABET_TRAIL_STAGES.length;
   const progressPercent = Math.min(100, Math.round((completedCount / totalStages) * 100));
 
+  const currentStageIndex = ALPHABET_TRAIL_STAGES.findIndex(s => s.id === activeStageId);
+  const nextStage = currentStageIndex >= 0 && currentStageIndex + 1 < ALPHABET_TRAIL_STAGES.length 
+    ? ALPHABET_TRAIL_STAGES[currentStageIndex + 1] 
+    : null;
+
+  const handleAdvanceToNextStage = () => {
+    playSound.celebrate(soundEnabled);
+    setShowCelebrationModal(false);
+    if (nextStage) {
+      setActiveStageId(nextStage.id);
+      setStageViewMode('observe');
+      setCurrentQuestionIndex(0);
+      setSelectedOptionId(null);
+      setAnswerState('idle');
+      setShowTipBubble(false);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      setActiveStageId(null);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const handleReturnToTrailMap = () => {
+    playSound.pop(soundEnabled);
+    setShowCelebrationModal(false);
+    setActiveStageId(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const renderCelebrationModal = () => {
+    if (!showCelebrationModal || !activeStage) return null;
+
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 animate-fadeIn">
+        <div className="bg-white dark:bg-[#111C35] rounded-3xl p-6 sm:p-8 max-w-md w-full text-center space-y-4 border border-slate-200 dark:border-slate-800 shadow-2xl animate-scaleUp">
+          <div className="w-24 h-24 mx-auto relative flex items-center justify-center">
+            <img
+              src="/assets/mascot_stitch.png"
+              alt="Lumi Comemorando"
+              className="w-full h-full object-contain pointer-events-none select-none drop-shadow-xl animate-bounce"
+            />
+          </div>
+
+          <div className="space-y-1">
+            <span className="text-xs font-black uppercase text-amber-500 tracking-wider">
+              PARABÉNS! ETAPA CONCLUÍDA
+            </span>
+            <h3 className="text-2xl font-black text-slate-900 dark:text-white font-outfit">
+              {activeStage.title}
+            </h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+              Você dominou os sinais desta etapa e desbloqueou o próximo desafio!
+            </p>
+          </div>
+
+          <div className="py-3 px-4 rounded-2xl bg-indigo-50 dark:bg-indigo-950/70 border border-indigo-100 dark:border-indigo-900/60 flex items-center justify-center gap-6">
+            <div className="flex items-center gap-1.5 text-amber-600 dark:text-amber-400 font-extrabold text-sm">
+              <Star className="w-5 h-5 fill-amber-400 text-amber-500" />
+              <span>+{activeStage.rewardStars} Estrelas</span>
+            </div>
+            <div className="flex items-center gap-1.5 text-blue-600 dark:text-sky-400 font-extrabold text-sm">
+              <Sparkles className="w-5 h-5" />
+              <span>+{activeStage.rewardXp} XP</span>
+            </div>
+          </div>
+
+          <div className="pt-2 flex flex-col gap-2.5">
+            {nextStage ? (
+              <button
+                onClick={handleAdvanceToNextStage}
+                className="btn-3d btn-primary-3d w-full py-3.5 px-6 rounded-2xl text-white font-black text-sm uppercase tracking-wider cursor-pointer font-outfit flex items-center justify-center gap-2"
+              >
+                <span>Avançar para Etapa {nextStage.stageNumber}: {nextStage.title}</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            ) : (
+              <button
+                onClick={handleReturnToTrailMap}
+                className="btn-3d btn-primary-3d w-full py-3.5 px-6 rounded-2xl text-white font-black text-sm uppercase tracking-wider cursor-pointer font-outfit flex items-center justify-center gap-2"
+              >
+                <span>Concluir Trilha</span>
+                <Check className="w-4 h-4 stroke-[3]" />
+              </button>
+            )}
+
+            <button
+              onClick={handleReturnToTrailMap}
+              className="w-full py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+            >
+              Voltar ao Mapa da Trilha
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   // ==========================================
   // VIEW 1: STAGE OBSERVATION (Image 2 format)
   // ==========================================
@@ -250,6 +347,8 @@ export const TrailScreen: React.FC<TrailScreenProps> = ({
             )}
           </div>
         </div>
+
+        {renderCelebrationModal()}
       </div>
     );
   }
@@ -424,6 +523,8 @@ export const TrailScreen: React.FC<TrailScreenProps> = ({
             )}
           </div>
         </div>
+
+        {renderCelebrationModal()}
       </div>
     );
   }
@@ -603,55 +704,7 @@ export const TrailScreen: React.FC<TrailScreenProps> = ({
       </div>
 
       {/* Stage Completed Celebration Modal */}
-      {showCelebrationModal && activeStage && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 animate-fadeIn">
-          <div className="bg-white dark:bg-[#111C35] rounded-3xl p-6 sm:p-8 max-w-md w-full text-center space-y-4 border border-slate-200 dark:border-slate-800 shadow-2xl animate-scaleUp">
-            <div className="w-24 h-24 mx-auto relative flex items-center justify-center">
-              <img
-                src="/assets/mascot_stitch.png"
-                alt="Lumi Comemorando"
-                className="w-full h-full object-contain pointer-events-none select-none drop-shadow-xl animate-bounce"
-              />
-            </div>
-
-            <div className="space-y-1">
-              <span className="text-xs font-black uppercase text-amber-500 tracking-wider">
-                PARABÉNS! ETAPA CONCLUÍDA
-              </span>
-              <h3 className="text-2xl font-black text-slate-900 dark:text-white font-outfit">
-                {activeStage.title}
-              </h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-                Você dominou os sinais desta etapa e avançou no Caminho das Letras!
-              </p>
-            </div>
-
-            <div className="py-3 px-4 rounded-2xl bg-indigo-50 dark:bg-indigo-950/70 border border-indigo-100 dark:border-indigo-900/60 flex items-center justify-center gap-6">
-              <div className="flex items-center gap-1.5 text-amber-600 dark:text-amber-400 font-extrabold text-sm">
-                <Star className="w-5 h-5 fill-amber-400 text-amber-500" />
-                <span>+{activeStage.rewardStars} Estrelas</span>
-              </div>
-              <div className="flex items-center gap-1.5 text-blue-600 dark:text-sky-400 font-extrabold text-sm">
-                <Sparkles className="w-5 h-5" />
-                <span>+{activeStage.rewardXp} XP</span>
-              </div>
-            </div>
-
-            <div className="pt-2 flex flex-col gap-2">
-              <button
-                onClick={() => {
-                  playSound.pop(soundEnabled);
-                  setShowCelebrationModal(false);
-                  setActiveStageId(null);
-                }}
-                className="btn-3d btn-primary-3d w-full py-3.5 px-6 rounded-2xl text-white font-black text-sm uppercase tracking-wider cursor-pointer font-outfit"
-              >
-                Continuar na Trilha
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      {renderCelebrationModal()}
     </div>
   );
 };

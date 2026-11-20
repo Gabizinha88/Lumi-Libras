@@ -9,16 +9,18 @@ interface HighFiveModalProps {
   onClose: () => void;
   onRewardStars: (amount: number) => void;
   soundEnabled: boolean;
+  alreadyClaimedToday?: boolean;
 }
 
 export const HighFiveModal: React.FC<HighFiveModalProps> = ({
   isOpen,
   onClose,
   onRewardStars,
-  soundEnabled
+  soundEnabled,
+  alreadyClaimedToday = false
 }) => {
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && !alreadyClaimedToday) {
       playSound.highFive(soundEnabled);
       try {
         confetti({
@@ -30,8 +32,10 @@ export const HighFiveModal: React.FC<HighFiveModalProps> = ({
         // ignore
       }
       onRewardStars(3);
+    } else if (isOpen && alreadyClaimedToday) {
+      playSound.pop(soundEnabled);
     }
-  }, [isOpen]);
+  }, [isOpen, alreadyClaimedToday]);
 
   if (!isOpen) return null;
 
@@ -58,17 +62,23 @@ export const HighFiveModal: React.FC<HighFiveModalProps> = ({
           </div>
         </div>
 
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 text-xs font-black uppercase tracking-wider mb-2">
+        <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider mb-2 ${
+          alreadyClaimedToday 
+            ? 'bg-blue-100 dark:bg-blue-950/60 text-blue-800 dark:text-sky-300'
+            : 'bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300'
+        }`}>
           <Sparkles className="w-3.5 h-3.5" />
-          Toca Aqui! +3 Estrelas
+          {alreadyClaimedToday ? 'Toca Aqui de Hoje Concluído ✦' : 'Toca Aqui! +3 Estrelas'}
         </div>
 
         <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-2">
-          Que energia boa! 🎉
+          {alreadyClaimedToday ? 'Você já tocou aqui hoje! 🌟' : 'Que energia boa! 🎉'}
         </h3>
 
         <p className="text-slate-600 dark:text-slate-300 text-sm mb-6 leading-relaxed">
-          Você deu um toca aqui no Lumi! Aprender Libras com alegria faz cada sinal ficar guardado no coração e na memória.
+          {alreadyClaimedToday
+            ? 'Cada dia de aprendizado em Libras é um passo muito especial. O Lumi já registrou seu toque de hoje. Volte amanhã para ganhar mais estrelas douradas!'
+            : 'Você deu um toca aqui no Lumi! Aprender Libras com alegria faz cada sinal ficar guardado no coração e na memória.'}
         </p>
 
         <div className="p-4 rounded-2xl bg-amber-50/80 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900/50 flex items-center justify-between mb-6">
@@ -77,11 +87,17 @@ export const HighFiveModal: React.FC<HighFiveModalProps> = ({
               <Star className="w-6 h-6 fill-white text-white" />
             </div>
             <div className="text-left">
-              <div className="text-sm font-bold text-slate-800 dark:text-white">Recompensa de Parceria</div>
-              <div className="text-xs text-amber-700 dark:text-amber-400 font-semibold">+3 Estrelas douradas adicionadas!</div>
+              <div className="text-sm font-bold text-slate-800 dark:text-white">
+                {alreadyClaimedToday ? 'Missão Diária do Toque' : 'Recompensa de Parceria'}
+              </div>
+              <div className="text-xs text-amber-700 dark:text-amber-400 font-semibold">
+                {alreadyClaimedToday ? 'Estrelas de hoje já coletadas' : '+3 Estrelas douradas adicionadas!'}
+              </div>
             </div>
           </div>
-          <span className="text-xl font-black text-amber-600 dark:text-amber-400">⭐ +3</span>
+          <span className="text-xl font-black text-amber-600 dark:text-amber-400">
+            {alreadyClaimedToday ? '✓ Feito' : '⭐ +3'}
+          </span>
         </div>
 
         <button

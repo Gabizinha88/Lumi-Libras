@@ -173,6 +173,53 @@ export default function App() {
     }
   }, [stats.highContrast]);
 
+  // Handle root font size scaling (+22%)
+  useEffect(() => {
+    if (stats.fontSize === 'large') {
+      document.documentElement.classList.add('font-size-large');
+    } else {
+      document.documentElement.classList.remove('font-size-large');
+    }
+  }, [stats.fontSize]);
+
+  // Handle colorblind mode class
+  useEffect(() => {
+    if (stats.colorblindMode) {
+      document.body.classList.add('colorblind-mode');
+    } else {
+      document.body.classList.remove('colorblind-mode');
+    }
+  }, [stats.colorblindMode]);
+
+  // Stop any ongoing speech immediately if user mutes sound
+  useEffect(() => {
+    if (!stats.soundEnabled) {
+      playSound.stopSpeaking();
+    }
+  }, [stats.soundEnabled]);
+
+  const handleHighFiveReward = (amount: number) => {
+    const today = getTodayDateString();
+    setStats((prev) => {
+      const nextStars = prev.stars + amount;
+      const nextXp = prev.xp + amount * 5;
+      const nextLevel = Math.floor(nextXp / 50) + 1;
+      const existingWeekly = prev.weeklyTrainedDates || [];
+      const updatedWeekly = existingWeekly.includes(today) ? existingWeekly : [...existingWeekly, today];
+
+      return {
+        ...prev,
+        stars: nextStars,
+        xp: nextXp,
+        level: Math.max(prev.level, nextLevel),
+        levelTitle: getLevelTitle(Math.max(prev.level, nextLevel)),
+        todayCompleted: true,
+        lastHighFiveDate: today,
+        weeklyTrainedDates: updatedWeekly
+      };
+    });
+  };
+
   const addStars = (amount: number) => {
     const today = getTodayDateString();
     setStats((prev) => {
@@ -358,6 +405,9 @@ export default function App() {
               fontSize: s.fontSize === 'normal' ? 'large' : 'normal'
             }))
           }
+          onToggleColorblindMode={() =>
+            setStats((s) => ({ ...s, colorblindMode: !s.colorblindMode }))
+          }
         />
       </div>
     );
@@ -370,6 +420,7 @@ export default function App() {
       <Sidebar
         currentTab={currentTab}
         onSelectTab={(tab) => {
+          playSound.stopSpeaking();
           setCurrentTab(tab);
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
@@ -513,8 +564,9 @@ export default function App() {
       <HighFiveModal
         isOpen={isHighFiveOpen}
         onClose={() => setIsHighFiveOpen(false)}
-        onRewardStars={addStars}
+        onRewardStars={handleHighFiveReward}
         soundEnabled={stats.soundEnabled}
+        alreadyClaimedToday={stats.lastHighFiveDate === getTodayDateString()}
       />
 
       <LumiTipModal
@@ -539,6 +591,9 @@ export default function App() {
             ...s,
             fontSize: s.fontSize === 'normal' ? 'large' : 'normal'
           }))
+        }
+        onToggleColorblindMode={() =>
+          setStats((s) => ({ ...s, colorblindMode: !s.colorblindMode }))
         }
       />
 

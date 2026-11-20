@@ -205,19 +205,25 @@ export const playSound = {
     }
   },
 
-  // Speech narration helper for accessibility and sign pronunciation
-  speakText: (text: string, enabled = true) => {
-    if (!enabled) return;
-    if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
-    try {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'pt-BR';
-      utterance.rate = 0.95; // slightly slower for kids
-      utterance.pitch = 1.1; // friendly tone
-      window.speechSynthesis.speak(utterance);
-    } catch {
-      // ignore
+  // Cancel any ongoing speech immediately
+  stopSpeaking: () => {
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      try {
+        window.speechSynthesis.cancel();
+      } catch {
+        // ignore
+      }
+    }
+  },
+
+  // Speech narration disabled per user request - Lumi communicates visually
+  speakText: (_text?: string, _enabled = true) => {
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      try {
+        window.speechSynthesis.cancel();
+      } catch {
+        // ignore
+      }
     }
   }
 };

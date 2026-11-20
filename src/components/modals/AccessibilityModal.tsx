@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Eye, Volume2, Type, Moon, Sun, Sparkles } from 'lucide-react';
+import { X, Eye, Volume2, Type, Moon, Sun, Sparkles, Palette } from 'lucide-react';
 import { UserStats } from '../../types';
 import { playSound } from '../../utils/sound';
 
@@ -11,6 +11,7 @@ interface AccessibilityModalProps {
   onToggleHighContrast: () => void;
   onToggleDarkMode: () => void;
   onToggleFontSize: () => void;
+  onToggleColorblindMode?: () => void;
 }
 
 export const AccessibilityModal: React.FC<AccessibilityModalProps> = ({
@@ -20,13 +21,14 @@ export const AccessibilityModal: React.FC<AccessibilityModalProps> = ({
   onToggleSound,
   onToggleHighContrast,
   onToggleDarkMode,
-  onToggleFontSize
+  onToggleFontSize,
+  onToggleColorblindMode
 }) => {
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="relative w-full max-w-md bg-white dark:bg-[#111C35] rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-100 dark:border-slate-800/80 overflow-hidden text-left transition-colors">
+      <div className="relative w-full max-w-md bg-white dark:bg-[#111C35] rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-100 dark:border-slate-800/80 overflow-hidden text-left transition-colors max-h-[90vh] overflow-y-auto">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-200 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
@@ -70,11 +72,12 @@ export const AccessibilityModal: React.FC<AccessibilityModalProps> = ({
               </div>
             </div>
             <button
+              type="button"
               onClick={() => {
                 playSound.pop(stats.soundEnabled);
                 onToggleDarkMode();
               }}
-              className={`w-12 h-6 rounded-full transition-colors relative cursor-pointer ${
+              className={`w-12 h-6 rounded-full transition-colors relative cursor-pointer shrink-0 ${
                 stats.darkMode ? 'bg-indigo-600' : 'bg-slate-300 dark:bg-slate-600'
               }`}
               title="Ativar/desativar modo noturno"
@@ -93,21 +96,64 @@ export const AccessibilityModal: React.FC<AccessibilityModalProps> = ({
               <Eye className="w-5 h-5 text-slate-600 dark:text-slate-300 ml-2" />
               <div>
                 <div className="text-xs font-bold text-slate-800 dark:text-white">Alto Contraste</div>
-                <div className="text-[11px] text-slate-500 dark:text-slate-400">Realça bordas e contraste visual</div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400">Realça bordas e contraste visual sem saltos</div>
               </div>
             </div>
             <button
+              type="button"
+              aria-label="Ativar ou desativar alto contraste"
+              aria-pressed={stats.highContrast}
               onClick={() => {
                 playSound.pop(stats.soundEnabled);
                 onToggleHighContrast();
               }}
-              className={`w-12 h-6 rounded-full transition-colors relative cursor-pointer ${
+              className={`w-12 h-6 rounded-full transition-colors relative cursor-pointer shrink-0 ${
                 stats.highContrast ? 'bg-blue-600' : 'bg-slate-300 dark:bg-slate-600'
               }`}
             >
               <div
                 className={`w-5 h-5 rounded-full bg-white shadow-xs transform transition-transform ${
                   stats.highContrast ? 'translate-x-6' : 'translate-x-0.5'
+                }`}
+              />
+            </button>
+          </div>
+
+          {/* Acessibilidade para Daltonismo */}
+          <div className="flex items-center justify-between p-3.5 rounded-2xl border border-slate-200 dark:border-slate-700/80 bg-slate-50/80 dark:bg-slate-800/60 transition-colors">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-cyan-100 dark:bg-cyan-950/80 flex items-center justify-center text-cyan-700 dark:text-cyan-300 shrink-0">
+                <Palette className="w-5 h-5" />
+              </div>
+              <div>
+                <div className="text-xs font-bold text-slate-800 dark:text-white flex items-center gap-1.5">
+                  <span>Modo Daltonismo</span>
+                  {stats.colorblindMode && (
+                    <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-600 dark:text-cyan-300 font-bold">
+                      Ativado
+                    </span>
+                  )}
+                </div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400">
+                  Símbolos reforçados e paleta de alto contraste seguro
+                </div>
+              </div>
+            </div>
+            <button
+              type="button"
+              aria-label="Ativar ou desativar modo para daltonismo"
+              aria-pressed={stats.colorblindMode}
+              onClick={() => {
+                playSound.pop(stats.soundEnabled);
+                if (onToggleColorblindMode) onToggleColorblindMode();
+              }}
+              className={`w-12 h-6 rounded-full transition-colors relative cursor-pointer shrink-0 ${
+                stats.colorblindMode ? 'bg-cyan-600' : 'bg-slate-300 dark:bg-slate-600'
+              }`}
+            >
+              <div
+                className={`w-5 h-5 rounded-full bg-white shadow-xs transform transition-transform ${
+                  stats.colorblindMode ? 'translate-x-6' : 'translate-x-0.5'
                 }`}
               />
             </button>
@@ -120,18 +166,19 @@ export const AccessibilityModal: React.FC<AccessibilityModalProps> = ({
               <div>
                 <div className="text-xs font-bold text-slate-800 dark:text-white">Tamanho do Texto</div>
                 <div className="text-[11px] text-slate-500 dark:text-slate-400">
-                  {stats.fontSize === 'large' ? 'Fonte Ampliada' : 'Fonte Padrão'}
+                  {stats.fontSize === 'large' ? 'Fonte Ampliada (+22% em toda a tela)' : 'Tamanho Padrão (100%)'}
                 </div>
               </div>
             </div>
             <button
+              type="button"
               onClick={() => {
                 playSound.pop(stats.soundEnabled);
                 onToggleFontSize();
               }}
               className="px-3 py-1.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-600 cursor-pointer"
             >
-              {stats.fontSize === 'large' ? 'Grande (Ativo)' : 'Padrão'}
+              {stats.fontSize === 'large' ? 'Ampliada (+22%)' : 'Padrão'}
             </button>
           </div>
 
@@ -141,14 +188,15 @@ export const AccessibilityModal: React.FC<AccessibilityModalProps> = ({
               <Volume2 className="w-5 h-5 text-slate-600 dark:text-slate-300 ml-2" />
               <div>
                 <div className="text-xs font-bold text-slate-800 dark:text-white">Sons e Efeitos de Áudio</div>
-                <div className="text-[11px] text-slate-500 dark:text-slate-400">Toques lúdicos e narração em voz alta</div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400">Toques e efeitos sonoros lúdicos</div>
               </div>
             </div>
             <button
+              type="button"
               onClick={() => {
                 onToggleSound();
               }}
-              className={`w-12 h-6 rounded-full transition-colors relative cursor-pointer ${
+              className={`w-12 h-6 rounded-full transition-colors relative cursor-pointer shrink-0 ${
                 stats.soundEnabled ? 'bg-blue-600' : 'bg-slate-300 dark:bg-slate-600'
               }`}
             >

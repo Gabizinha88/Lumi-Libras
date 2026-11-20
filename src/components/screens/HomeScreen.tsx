@@ -10,8 +10,7 @@ import {
   Star, 
   Flame, 
   Gamepad2, 
-  Users, 
-  ShieldCheck, 
+  BookOpen, 
   Route, 
   Lightbulb,
   WholeWord
@@ -98,6 +97,9 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
   const trainedDaysCount = weekDays.filter(d => d.isTrained).length;
   const isTodayTrained = weekDays.some(d => d.isToday && d.isTrained);
 
+  const todayDateString = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+  const isHighFiveDoneToday = stats.lastHighFiveDate === todayDateString;
+
   return (
     <div className="space-y-8 pb-8 text-left transition-colors">
       {/* ======================================================== */}
@@ -145,21 +147,15 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
 
               <button
                 onClick={onOpenHighFive}
-                className="flex items-center gap-2 px-5 py-3.5 rounded-full bg-white dark:bg-slate-100 hover:bg-slate-50 active:scale-95 text-blue-900 font-extrabold text-sm shadow-md shadow-black/5 transition-transform cursor-pointer font-outfit"
+                className={`flex items-center gap-2 px-5 py-3.5 rounded-full active:scale-95 font-extrabold text-sm shadow-md transition-all cursor-pointer font-outfit ${
+                  isHighFiveDoneToday
+                    ? 'bg-blue-100/90 dark:bg-blue-950/80 text-blue-900 dark:text-sky-200 border border-blue-200 dark:border-blue-700/70'
+                    : 'bg-white dark:bg-slate-100 hover:bg-slate-50 text-blue-900 shadow-black/5'
+                }`}
+                title={isHighFiveDoneToday ? 'Você já deu o toca aqui hoje! Volte amanhã para mais estrelas' : 'Dar um toca aqui no Lumi e ganhar estrelas'}
               >
-                <span className="text-base">✋</span>
-                <span>Toca aqui!</span>
-              </button>
-
-              <button
-                onClick={() => {
-                  playSound.pop(stats.soundEnabled);
-                  onOpenTipModal();
-                }}
-                className="flex items-center gap-2 px-4 py-3.5 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 text-white font-bold text-xs sm:text-sm border border-white/25 transition-colors cursor-pointer"
-              >
-                <Play className="w-4 h-4 fill-white text-white" />
-                <span>Ver abertura</span>
+                <span className="text-base">{isHighFiveDoneToday ? '✨' : '✋'}</span>
+                <span>{isHighFiveDoneToday ? 'Toca aqui! (Feito hoje ✦)' : 'Toca aqui!'}</span>
               </button>
             </div>
 
@@ -488,6 +484,37 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
               Ver Sinais com Expressão
             </button>
           </div>
+
+          {/* Section: Fontes & Curiosidades Banner (Abaixo da Dica do Mestre Lumi) */}
+          <div className="rounded-3xl bg-gradient-to-br from-sky-50 via-blue-50/70 to-indigo-50/90 dark:from-[#111F3D] dark:via-[#111C35] dark:to-[#0C152B] p-6 border border-sky-100 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-5 transition-colors shadow-xs">
+            <div className="flex items-center gap-4 text-left">
+              <div className="w-14 h-14 rounded-2xl bg-sky-500/15 dark:bg-sky-500/20 text-sky-600 dark:text-sky-300 flex items-center justify-center shrink-0 border border-sky-200/50 dark:border-sky-800/60 shadow-xs">
+                <BookOpen className="w-7 h-7 text-sky-600 dark:text-sky-300" />
+              </div>
+              <div>
+                <span className="text-[10px] font-black uppercase tracking-wider text-sky-700 dark:text-sky-400 font-outfit">
+                  FONTES, CRÉDITOS & CURIOSIDADES
+                </span>
+                <h4 className="text-base font-black text-slate-900 dark:text-white font-outfit">
+                  Descubra a história e a cultura da Libras
+                </h4>
+                <p className="text-xs text-slate-600 dark:text-slate-300 font-medium max-w-md mt-0.5">
+                  Conheça 5 curiosidades fascinantes, leis de inclusão e as fontes oficiais do projeto!
+                </p>
+              </div>
+            </div>
+
+            <button
+              onClick={() => {
+                playSound.pop(stats.soundEnabled);
+                onNavigateTab('credits-curiosities');
+              }}
+              className="px-5 py-2.5 rounded-full bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-sky-700 dark:text-sky-300 text-xs font-bold border border-sky-200 dark:border-slate-700 transition-all shadow-2xs whitespace-nowrap cursor-pointer font-outfit flex items-center gap-2 shrink-0"
+            >
+              <span>Explorar Curiosidades & Fontes</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
         </div>
 
         {/* Right Column: Dynamic Weekly Mission & Side Widgets */}
@@ -594,63 +621,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
               <span>Jogar 1 Partida Rápida</span>
             </button>
           </div>
-
-          {/* Card 3: Fontes & Curiosidades de Libras */}
-          <div
-            onClick={() => {
-              playSound.pop(stats.soundEnabled);
-              onNavigateTab('credits-curiosities');
-            }}
-            className="bg-white dark:bg-[#111C35] rounded-3xl p-4 border border-slate-200/80 dark:border-slate-800 shadow-xs hover:border-blue-300 dark:hover:border-blue-500 hover:bg-blue-50/20 dark:hover:bg-slate-800/40 transition-all cursor-pointer flex items-center justify-between"
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-sky-100 dark:bg-sky-950/60 text-sky-700 dark:text-sky-300 flex items-center justify-center">
-                <ShieldCheck className="w-5 h-5" />
-              </div>
-              <div>
-                <h4 className="text-xs font-extrabold text-slate-900 dark:text-white font-outfit">
-                  Fontes & Curiosidades
-                </h4>
-                <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">
-                  5 fatos sobre Libras e fontes oficiais
-                </p>
-              </div>
-            </div>
-            <ArrowRight className="w-4 h-4 text-slate-400" />
-          </div>
         </div>
-      </section>
-
-      {/* ======================================================== */}
-      {/* 4. FAMILY CONNECTION BANNER                             */}
-      {/* ======================================================== */}
-      <section className="rounded-3xl bg-blue-50/80 dark:bg-[#111C35] border border-blue-100/90 dark:border-slate-800 p-6 sm:p-7 flex flex-col sm:flex-row items-center justify-between gap-5 text-left transition-colors">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-[#FDE047] text-amber-950 flex items-center justify-center shrink-0 shadow-xs">
-            <Users className="w-6 h-6" />
-          </div>
-          <div>
-            <span className="text-[10px] font-black uppercase tracking-wider text-blue-700 dark:text-sky-400 font-outfit">
-              APRENDER CONECTA A GENTE
-            </span>
-            <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-white font-outfit">
-              Aprender fica ainda melhor em companhia
-            </h3>
-            <p className="text-xs text-slate-600 dark:text-slate-400 font-medium max-w-lg mt-0.5">
-              Convide alguém da família ou um amigo para descobrir as curiosidades e praticar os sinais com você!
-            </p>
-          </div>
-        </div>
-
-        <button
-          onClick={() => {
-            playSound.pop(stats.soundEnabled);
-            onNavigateTab('credits-curiosities');
-          }}
-          className="px-5 py-2.5 rounded-full bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-blue-200 dark:border-slate-700 text-blue-700 dark:text-blue-300 text-xs font-bold transition-all shadow-2xs whitespace-nowrap cursor-pointer font-outfit"
-        >
-          <span>Curiosidades & Fontes</span> ➔
-        </button>
       </section>
     </div>
   );
